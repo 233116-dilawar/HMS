@@ -1,0 +1,37 @@
+PROJECT: Hospital Management System
+TECHNOLOGIES: Java, JSP, Servlets, MySQL, Bootstrap
+
+MODULES COMPLETED:
+1. ✅ Authentication & Authorization 
+   - Admin Login (admin/admin)
+   - User Login (123/123)
+   - Session Management implemented
+   - Secure Logout functionality
+   
+2. ✅ Patient Management (Full CRUD)
+   - Add Patient (PatientServlet)
+   - View Patients (Admin Dashboard)
+   - Update Patient (PatientServlet)
+   - Delete Patient (PatientServlet)
+   - Search Patient
+
+3. ✅ Doctor Management (View/Add)
+   - Add Doctor
+   - View Doctors
+
+4. ✅ Dashboard
+   - Real-time counters on Admin Dashboard
+
+FEATURES:
+- Role-based access (Admin, User)
+- Session management (Prevents unauthorized access)
+- Input validations
+- Responsive design using Bootstrap
+
+LOGIN CREDENTIALS:
+Admin: admin / admin
+User: 123 / 123
+
+DATABASE: 
+- hospital.sql included in project root
+- Run 'START_PROJECT.bat' for quick setup

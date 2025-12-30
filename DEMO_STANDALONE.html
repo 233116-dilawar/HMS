@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System - Live Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .demo-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .header-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header-card h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header-card .badge {
+            font-size: 1em;
+            padding: 10px 20px;
+        }
+
+        .nav-tabs {
+            border: none;
+            background: white;
+            border-radius: 15px;
+            padding: 20px 20px 0 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            color: #666;
+            font-weight: 600;
+            padding: 15px 30px;
+            margin-right: 10px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tab-content {
+            background: white;
+            border-radius: 0 0 15px 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-card {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-card h3 {
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .dashboard-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stat-box h2 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        .stat-box p {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .table-custom {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table-custom thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .alert-custom {
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <div class="header-card">
+            <h1><i class="fas fa-hospital"></i> Hospital Management System</h1>
+            <p class="lead">MVC Architecture - Live Interactive Demo</p>
+            <span class="badge badge-success">✅ MVC Complete</span>
+            <span class="badge badge-info">📊 Interactive Demo</span>
+            <span class="badge badge-warning">⚡ No Database Required</span>
+        </div>
+
+        <ul class="nav nav-tabs" id="demoTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab">
+                    <i class="fas fa-user-shield"></i> Admin Login
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="user-tab" data-toggle="tab" href="#user" role="tab">
+                    <i class="fas fa-user"></i> User Login
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="features-tab" data-toggle="tab" href="#features" role="tab">
+                    <i class="fas fa-star"></i> Features
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Home Tab -->
+            <div class="tab-pane fade show active" id="home" role="tabpanel">
+                <div class="alert alert-info alert-custom">
+                    <h4><i class="fas fa-info-circle"></i> Welcome to the Interactive Demo!</h4>
+                    <p>This is a fully functional demonstration of the Hospital Management System with proper MVC
+                        architecture. Explore the tabs above to see different features!</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stat-box">
+                            <h2><i class="fas fa-users"></i></h2>
+                            <h2>150+</h2>
+                            <p>Patients</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-box" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                            <h2><i class="fas fa-user-md"></i></h2>
+                            <h2>25+</h2>
+                            <p>Doctors</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-box" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                            <h2><i class="fas fa-calendar-check"></i></h2>
+                            <h2>500+</h2>
+                            <p>Appointments</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="dashboard-card">
+                            <h4><i class="fas fa-code"></i> MVC Architecture</h4>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success"></i> Model Layer (6 classes)</li>
+                                <li><i class="fas fa-check text-success"></i> DAO Layer (4 classes)</li>
+                                <li><i class="fas fa-check text-success"></i> Controller Layer (Servlets)</li>
+                                <li><i class="fas fa-check text-success"></i> View Layer (JSP)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="dashboard-card">
+                            <h4><i class="fas fa-shield-alt"></i> Security Features</h4>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success"></i> PreparedStatement (SQL Injection
+                                    Prevention)</li>
+                                <li><i class="fas fa-check text-success"></i> Session Management</li>
+                                <li><i class="fas fa-check text-success"></i> Role-Based Access Control</li>
+                                <li><i class="fas fa-check text-success"></i> Input Validation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Login Tab -->
+            <div class="tab-pane fade" id="admin" role="tabpanel">
+                <div class="login-card">
+                    <h3><i class="fas fa-user-shield"></i> Admin Login</h3>
+                    <form id="adminLoginForm">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" id="adminUsername" placeholder="admin"
+                                value="admin">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" id="adminPassword" placeholder="admin"
+                                value="admin">
+                        </div>
+                        <button type="submit" class="btn btn-custom">
+                            <i class="fas fa-sign-in-alt"></i> Login as Admin
+                        </button>
+                    </form>
+                    <div class="alert alert-info alert-custom mt-3">
+                        <strong>Demo Credentials:</strong><br>
+                        Username: <code>admin</code><br>
+                        Password: <code>admin</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Login Tab -->
+            <div class="tab-pane fade" id="user" role="tabpanel">
+                <div class="login-card">
+                    <h3><i class="fas fa-user"></i> User Login</h3>
+                    <form id="userLoginForm">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" id="userUsername" placeholder="123" value="123">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" id="userPassword" placeholder="123" value="123">
+                        </div>
+                        <button type="submit" class="btn btn-custom">
+                            <i class="fas fa-sign-in-alt"></i> Login as User
+                        </button>
+                    </form>
+                    <div class="alert alert-info alert-custom mt-3">
+                        <strong>Demo Credentials:</strong><br>
+                        Username: <code>123</code><br>
+                        Password: <code>123</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div class="tab-pane fade" id="dashboard" role="tabpanel">
+                <h3 class="mb-4"><i class="fas fa-chart-line"></i> Admin Dashboard</h3>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="dashboard-card">
+                            <h4><i class="fas fa-users"></i> Recent Patients</h4>
+                            <table class="table table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Age</th>
+                                        <th>City</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>John Doe</td>
+                                        <td>35</td>
+                                        <td>New York</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jane Smith</td>
+                                        <td>28</td>
+                                        <td>Los Angeles</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bob Johnson</td>
+                                        <td>45</td>
+                                        <td>Chicago</td>
+                                        <td><span class="badge badge-warning">Pending</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="dashboard-card">
+                            <h4><i class="fas fa-user-md"></i> Available Doctors</h4>
+                            <table class="table table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Specialization</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Dr. Sarah Wilson</td>
+                                        <td>Cardiology</td>
+                                        <td><span class="badge badge-success">Available</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dr. Michael Brown</td>
+                                        <td>Neurology</td>
+                                        <td><span class="badge badge-success">Available</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dr. Emily Davis</td>
+                                        <td>Pediatrics</td>
+                                        <td><span class="badge badge-danger">Busy</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Tab -->
+            <div class="tab-pane fade" id="features" role="tabpanel">
+                <h3 class="mb-4"><i class="fas fa-star"></i> System Features</h3>
+
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <div class="dashboard-card">
+                            <i class="fas fa-user-plus feature-icon"></i>
+                            <h4>Patient Management</h4>
+                            <p>Add, update, view, and delete patient records with complete medical history.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="dashboard-card">
+                            <i class="fas fa-stethoscope feature-icon"></i>
+                            <h4>Doctor Management</h4>
+                            <p>Manage doctor profiles, specializations, and availability schedules.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="dashboard-card">
+                            <i class="fas fa-calendar-alt feature-icon"></i>
+                            <h4>Appointments</h4>
+                            <p>Schedule and manage patient appointments with doctors efficiently.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="dashboard-card">
+                            <i class="fas fa-user-nurse feature-icon"></i>
+                            <h4>Staff Management</h4>
+                            <p>Manage receptionists, workers, and other hospital staff members.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="dashboard-card">
+                            <i class="fas fa-pills feature-icon"></i>
+                            <h4>Medicine Inventory</h4>
+                            <p>Track and manage medicine stock and inventory levels.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="dashboard-card">
+                            <i class="fas fa-chart-bar feature-icon"></i>
+                            <h4>Reports & Analytics</h4>
+                            <p>Generate comprehensive reports and analytics for better decision making.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-success alert-custom mt-4">
+                    <h4><i class="fas fa-check-circle"></i> MVC Architecture Benefits</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li>✅ Clean separation of concerns</li>
+                                <li>✅ Easy to maintain and extend</li>
+                                <li>✅ Reusable components</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li>✅ Secure database operations</li>
+                                <li>✅ Professional code structure</li>
+                                <li>✅ Scalable architecture</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Admin Login Form
+        $('#adminLoginForm').submit(function (e) {
+            e.preventDefault();
+            const username = $('#adminUsername').val();
+            const password = $('#adminPassword').val();
+
+            if (username === 'admin' && password === 'admin') {
+                alert('✅ Admin Login Successful!\\n\\nWelcome to the Admin Dashboard.\\n\\nIn the full application, you would be redirected to AdminHome.jsp');
+                $('#dashboard-tab').tab('show');
+            } else {
+                alert('❌ Invalid credentials!\\n\\nPlease use:\\nUsername: admin\\nPassword: admin');
+            }
+        });
+
+        // User Login Form
+        $('#userLoginForm').submit(function (e) {
+            e.preventDefault();
+            const username = $('#userUsername').val();
+            const password = $('#userPassword').val();
+
+            if (username === '123' && password === '123') {
+                alert('✅ User Login Successful!\\n\\nWelcome to the User Dashboard.\\n\\nIn the full application, you would be redirected to UserHome.jsp');
+                $('#dashboard-tab').tab('show');
+            } else {
+                alert('❌ Invalid credentials!\\n\\nPlease use:\\nUsername: 123\\nPassword: 123');
+            }
+        });
+    </script>
+</body>
+
+</html>
