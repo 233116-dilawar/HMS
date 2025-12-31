@@ -84,65 +84,72 @@
                     </span>
                 </div>
 
-                <form class="contact100-form validate-form"
-                    action="<%=request.getContextPath()%>/PatientServlet?action=add" method="post">
-                    <div class="wrap-input100 validate-input" data-validate="First Name is required">
-                        <span class="label-input100">First_Name:</span>
-                        <input class="input100" type="text" name="fname" placeholder="Enter First name">
-                        <span class="focus-input100"></span>
+                <% if (request.getParameter("error") !=null) { %>
+                    <div class="alert alert-danger" role="alert" style="margin: 20px;">
+                        <%= request.getParameter("error") %>
                     </div>
+                    <% } %>
 
-                    <div class="wrap-input100 validate-input" data-validate="Last Name is required">
-                        <span class="label-input100">Last_Name:</span>
-                        <input class="input100" type="text" name="lname" placeholder="Enter Last name">
-                        <span class="focus-input100"></span>
-                    </div>
+                        <form class="contact100-form validate-form"
+                            action="<%=request.getContextPath()%>/PatientServlet?action=add" method="post">
+                            <div class="wrap-input100 validate-input" data-validate="First Name is required">
+                                <span class="label-input100">First_Name:</span>
+                                <input class="input100" type="text" name="fname" placeholder="Enter First name">
+                                <span class="focus-input100"></span>
+                            </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="gender is required">
-                        <span class="label-input100">Gender:</span>
-                        <input class="input100" type="text" name="gender" placeholder="Enter Gender">
-                        <span class="focus-input100"></span>
-                    </div>
+                            <div class="wrap-input100 validate-input" data-validate="Last Name is required">
+                                <span class="label-input100">Last_Name:</span>
+                                <input class="input100" type="text" name="lname" placeholder="Enter Last name">
+                                <span class="focus-input100"></span>
+                            </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Phone is required">
-                        <span class="label-input100">Phone:</span>
-                        <input class="input100" type="text" name="Mobile" placeholder="Enter phone number">
-                        <span class="focus-input100"></span>
-                    </div>
+                            <div class="wrap-input100 validate-input" data-validate="gender is required">
+                                <span class="label-input100">Gender:</span>
+                                <input class="input100" type="text" name="gender" placeholder="Enter Gender">
+                                <span class="focus-input100"></span>
+                            </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="City is required">
-                        <span class="label-input100">City:</span>
-                        <input class="input100" type="text" name="City" placeholder="Enter City">
-                        <span class="focus-input100"></span>
-                    </div>
+                            <div class="wrap-input100 validate-input" data-validate="Phone is required">
+                                <span class="label-input100">Phone:</span>
+                                <input class="input100" type="text" name="Mobile" placeholder="Enter phone number">
+                                <span class="focus-input100"></span>
+                            </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <span class="label-input100">Email:</span>
-                        <input class="input100" type="text" name="email" placeholder="Enter email">
-                        <span class="focus-input100"></span>
-                    </div>
+                            <div class="wrap-input100 validate-input" data-validate="City is required">
+                                <span class="label-input100">City:</span>
+                                <input class="input100" type="text" name="City" placeholder="Enter City">
+                                <span class="focus-input100"></span>
+                            </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Age is required">
-                        <span class="label-input100">Age:</span>
-                        <input class="input100" type="text" name="age" placeholder="Enter Age">
-                        <span class="focus-input100"></span>
-                    </div>
+                            <div class="wrap-input100 validate-input"
+                                data-validate="Valid email is required: ex@abc.xyz">
+                                <span class="label-input100">Email:</span>
+                                <input class="input100" type="text" name="email" placeholder="Enter email">
+                                <span class="focus-input100"></span>
+                            </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Address is required">
-                        <span class="label-input100">Address</span>
-                        <input class="input100" type="text" name="address" placeholder="Enter Address">
-                        <span class="focus-input100"></span>
-                    </div>
+                            <div class="wrap-input100 validate-input" data-validate="Age is required">
+                                <span class="label-input100">Age:</span>
+                                <input class="input100" type="text" name="age" placeholder="Enter Age">
+                                <span class="focus-input100"></span>
+                            </div>
 
-                    <div class="container-contact100-form-btn">
-                        <button class="contact100-form-btn">
-                            <span>
-                                Submit
-                                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                            </span>
-                        </button>
-                    </div>
-                </form>
+                            <div class="wrap-input100 validate-input" data-validate="Address is required">
+                                <span class="label-input100">Address</span>
+                                <input class="input100" type="text" name="address" placeholder="Enter Address">
+                                <span class="focus-input100"></span>
+                            </div>
+
+                            <div class="container-contact100-form-btn">
+                                <button class="contact100-form-btn">
+                                    <span>
+                                        Submit
+                                        <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
             </div>
         </div>
 

@@ -1,34 +1,32 @@
 
 package Controller;
 
-import Database.DatabaseConnection;
+import DAO.PatientDAO;
+import Model.Patient;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-
 
 @WebServlet("/AddPatient")
 public class AddPatient extends HttpServlet {
 
-    private int i;
+    private PatientDAO patientDAO;
+
+    public void init() {
+        patientDAO = new PatientDAO();
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter pw = response.getWriter();
+
         try {
             Date todaysDate = new Date();
             DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -44,40 +42,36 @@ public class AddPatient extends HttpServlet {
 
             String DateAndTime = df2.format(todaysDate);
 
-            Connection con = DatabaseConnection.initializeDatabase();
-            PreparedStatement pst = con.prepareStatement("insert into patient values(?,?,?,?,?,?,?,?,?)");
-            pst.setString(9, phone);
-            pst.setString(1, fname);
-            pst.setString(2, lname);
-            pst.setString(3, gender);
-            pst.setString(4, city);
-            pst.setString(5, email);
-            pst.setString(6, age);
-            pst.setString(7, address);
-            pst.setString(8, DateAndTime);
+            Patient patient = new Patient();
+            patient.setFname(fname);
+            patient.setLname(lname);
+            patient.setGender(gender);
+            patient.setMobile(phone);
+            patient.setCity(city);
+            patient.setEmail(email);
+            patient.setAge(age);
+            patient.setAddress(address);
+            patient.setDate(DateAndTime);
 
-            i = pst.executeUpdate();
-            if (i > 0) {
+            boolean success = patientDAO.addPatient(patient);
+
+            response.setContentType("text/html");
+            PrintWriter pw = response.getWriter();
+
+            if (success) {
                 pw.println("<script type=\"text/javascript\">");
-                pw.println("alert('Login Successfully..!');");
+                pw.println("alert('Patient Added Successfully..!');");
                 pw.println("window.location.href = \"UserHome.jsp\";");
                 pw.println("</script>");
-                //RequestDispatcher rd = request.getRequestDispatcher("UserHome.jsp");
-                //rd.forward(request, response);
             } else {
                 pw.println("<script type=\"text/javascript\">");
-                pw.println("alert('Incorrect Data..!');");
+                pw.println("alert('Failed! Duplicate entry or Database Error.');");
                 pw.println("window.location.href = \"addpatient.jsp\";");
                 pw.println("</script>");
-                //RequestDispatcher rd = request.getRequestDispatcher("addpatient.jsp");
-                //rd.forward(request, response);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(AddPatient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddPatient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            response.sendRedirect("addpatient.jsp?error=Unexpected error: " + ex.getMessage());
         }
-
     }
-
 }

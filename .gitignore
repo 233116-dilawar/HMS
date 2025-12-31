@@ -1,0 +1,12 @@
+target/
+build/
+dist/
+nbproject/private/
+.antigravity/
+*.class
+*.war
+*.log
+.settings/
+.project
+.classpath
+bin/

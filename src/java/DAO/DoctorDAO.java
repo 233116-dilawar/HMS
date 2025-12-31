@@ -32,6 +32,9 @@ public class DoctorDAO {
             int result = pst.executeUpdate();
             return result > 0;
 
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.err.println("Error adding doctor: Duplicate entry found. " + e.getMessage());
+            return false;
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             return false;

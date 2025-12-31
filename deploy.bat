@@ -5,7 +5,7 @@ echo ========================================
 echo.
 
 REM Configuration
-set TOMCAT_HOME=C:\Program Files\Apache Software Foundation\Tomcat 9.0
+set TOMCAT_HOME=C:\Tomcat9
 set APP_NAME=HMS
 set PROJECT_DIR=%~dp0
 

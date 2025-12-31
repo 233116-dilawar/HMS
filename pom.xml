@@ -60,6 +60,7 @@
     </dependencies>
     
     <build>
+        <sourceDirectory>src/java</sourceDirectory>
         <finalName>HMS</finalName>
         <plugins>
             <!-- Maven Compiler Plugin -->

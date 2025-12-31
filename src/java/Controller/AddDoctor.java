@@ -1,34 +1,32 @@
 
 package Controller;
 
-import Database.DatabaseConnection;
+import DAO.DoctorDAO;
+import Model.Doctor;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet("/AddDoctor")
 public class AddDoctor extends HttpServlet {
 
-    private int i;
+    private DoctorDAO doctorDAO;
+
+    public void init() {
+        doctorDAO = new DoctorDAO();
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter pw = response.getWriter();
+
         try {
             Date todaysDate = new Date();
             DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -47,39 +45,40 @@ public class AddDoctor extends HttpServlet {
 
             String DateAndTime = df2.format(todaysDate);
 
-            Connection con = DatabaseConnection.initializeDatabase();
-            PreparedStatement pst = con.prepareStatement("insert into doctor values(?,?,?,?,?,?,?,?,?,?,?)");
-            pst.setInt(1, id);
-            pst.setString(5, phone);
-            pst.setString(2, fname);
-            pst.setString(3, lname);
-            pst.setString(4, gender);
-            pst.setString(6, city);
-            pst.setString(7, email);
-            pst.setString(8, age);
-            pst.setString(9, address);
-            pst.setString(10, DateAndTime);
-            pst.setString(11, qualification);
+            Doctor doctor = new Doctor();
+            doctor.setId(id);
+            doctor.setFname(fname);
+            doctor.setLname(lname);
+            doctor.setGender(gender);
+            doctor.setMobile(phone);
+            doctor.setCity(city);
+            doctor.setEmail(email);
+            doctor.setAge(age);
+            doctor.setAddress(address);
+            doctor.setRegistrationDate(DateAndTime);
+            doctor.setQualification(qualification);
 
-            i = pst.executeUpdate();
-            if (i > 0) {
+            boolean success = doctorDAO.addDoctor(doctor);
+
+            response.setContentType("text/html");
+            PrintWriter pw = response.getWriter();
+
+            if (success) {
                 pw.println("<script type=\"text/javascript\">");
-                pw.println("alert('Data Add Successfully..!');");
+                pw.println("alert('Data Added Successfully..!');");
                 pw.println("window.location.href = \"AdminHome.jsp\";");
                 pw.println("</script>");
-                //RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
-                //rd.forward(request, response);
             } else {
                 pw.println("<script type=\"text/javascript\">");
-                pw.println("alert('Failed !!!!,try Again Later!');");
+                pw.println("alert('Failed !!!! Duplicate entry or Database Error. Try Again Later!');");
                 pw.println("window.location.href = \"addDoctor.jsp\";");
                 pw.println("</script>");
-                //RequestDispatcher rd = request.getRequestDispatcher("addDoctor.jsp");
-                //rd.forward(request, response);
             }
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(AddPatient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException ex) {
+            response.sendRedirect("addDoctor.jsp?error=Invalid ID format");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            response.sendRedirect("addDoctor.jsp?error=Unexpected error: " + ex.getMessage());
         }
     }
-
 }

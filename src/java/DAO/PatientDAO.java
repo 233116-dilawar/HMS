@@ -30,6 +30,9 @@ public class PatientDAO {
             int result = pst.executeUpdate();
             return result > 0;
 
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.err.println("Error adding patient: Duplicate entry found. " + e.getMessage());
+            return false;
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             return false;
@@ -59,6 +62,42 @@ public class PatientDAO {
                 patient.setDate(rs.getString("date"));
                 patient.setMobile(rs.getString("mobile"));
                 patients.add(patient);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return patients;
+    }
+
+    /**
+     * Search patients by name
+     */
+    public List<Patient> searchPatients(String keyword) {
+        List<Patient> patients = new ArrayList<>();
+        String query = "SELECT * FROM patient WHERE fname LIKE ? OR lname LIKE ?";
+
+        try (Connection con = DatabaseConnection.initializeDatabase();
+                PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setString(1, "%" + keyword + "%");
+            pst.setString(2, "%" + keyword + "%");
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    Patient patient = new Patient();
+                    patient.setFname(rs.getString("fname"));
+                    patient.setLname(rs.getString("lname"));
+                    patient.setGender(rs.getString("gender"));
+                    patient.setCity(rs.getString("city"));
+                    patient.setEmail(rs.getString("email"));
+                    patient.setAge(rs.getString("age"));
+                    patient.setAddress(rs.getString("address"));
+                    patient.setDate(rs.getString("date"));
+                    patient.setMobile(rs.getString("mobile"));
+                    patients.add(patient);
+                }
             }
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -120,6 +159,29 @@ public class PatientDAO {
             pst.setString(8, patient.getMobile());
             pst.setString(9, oldEmail);
 
+            int result = pst.executeUpdate();
+            return result > 0;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Delete a patient by email
+     */
+
+    /**
+     * Delete a patient by mobile
+     */
+    public boolean deletePatientByMobile(String mobile) {
+        String query = "DELETE FROM patient WHERE mobile = ?";
+
+        try (Connection con = DatabaseConnection.initializeDatabase();
+                PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setString(1, mobile);
             int result = pst.executeUpdate();
             return result > 0;
 
